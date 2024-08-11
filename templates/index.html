@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>To Do List</h1>
+    <p>Welcome, {{ current_user.username }}! <a href="{{ url_for('logout') }}">Log Out</a></p>
 
     <form action="{{ url_for('add_task') }}" method="POST">
         <input type="text" name="task" placeholder="Add new task" required>
@@ -17,9 +18,7 @@
         {% for task in tasks %}
             <li>
                 {{ task.content }}
-                <!-- タスクを編集するためのリンク -->
                 <a href="{{ url_for('edit_task', task_id=task.id) }}">Edit</a>
-                <!-- タスクを削除するためのリンク -->
                 <a href="{{ url_for('delete_task', task_id=task.id) }}">Delete</a>
             </li>
         {% endfor %}
