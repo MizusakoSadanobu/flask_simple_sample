@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ページのメタデータと基本設定 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask To Do App</title> <!-- ページタイトル -->
+    <title>Flask To Do App</title>
 </head>
 <body>
-    <h1>To Do List</h1> <!-- メイン見出し -->
+    <h1>To Do List</h1>
 
-    <!-- 新しいタスクを追加するフォーム -->
     <form action="{{ url_for('add_task') }}" method="POST">
-        <!-- タスク入力フィールド -->
         <input type="text" name="task" placeholder="Add new task" required>
-        <!-- タスク追加ボタン -->
         <button type="submit">Add</button>
     </form>
 
-    <!-- タスクのリスト表示 -->
     <ul>
-        <!-- tasksリストをループして各タスクを表示 -->
         {% for task in tasks %}
             <li>
-                <!-- タスクの名前を表示 -->
-                {{ task }}
-                <!-- タスクを削除するためのリンク。loop.index0はゼロベースのインデックスを取得 -->
-                <a href="{{ url_for('delete_task', task_id=loop.index0) }}">Delete</a>
+                <!-- タスクの内容を表示 -->
+                {{ task.content }}
+                <!-- タスクを削除するためのリンク -->
+                <a href="{{ url_for('delete_task', task_id=task.id) }}">Delete</a>
             </li>
         {% endfor %}
     </ul>
