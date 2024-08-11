@@ -40,6 +40,19 @@ def add_task():
         db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/edit/<int:task_id>', methods=['GET', 'POST'])
+def edit_task(task_id):
+    # 編集するタスクを取得
+    task = Task.query.get_or_404(task_id)
+    if request.method == 'POST':
+        # フォームから送信された新しいタスク内容を取得
+        new_content = request.form.get('task')
+        if new_content:
+            task.content = new_content
+            db.session.commit()
+            return redirect(url_for('index'))
+    return render_template('edit.html', task=task)
+
 @app.route('/delete/<int:task_id>')
 def delete_task(task_id):
     # 指定されたIDのタスクをデータベースから削除
